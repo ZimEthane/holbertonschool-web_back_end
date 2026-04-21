@@ -1,3 +1,4 @@
+// Update documents named Holberton school with an address
 db.school.update(
     { name: "Holberton school" },
     { $set: { address: "972 Mission street" } },
