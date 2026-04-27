@@ -1,30 +1,25 @@
-ES6_classes# ES6 Basic
+# ES6 Classes
 
 ## Description
 
-This project covers the fundamentals of **ECMAScript 6 (ES2015)** — the major update to JavaScript that introduced modern syntax and features. Each task focuses on replacing older ES5 patterns with their cleaner ES6 equivalents.
+This project explores Object-Oriented Programming in JavaScript using ES6 class syntax. It covers class definition, getters/setters, static methods, inheritance, abstract classes, metaprogramming with Symbols, and hoisting behavior.
 
 ## Learning Objectives
 
 By the end of this project, you should be able to explain:
 
-- What ES6 is and the new features it introduced
-- The difference between `const`, `let`, and `var`
-- Block-scoped variables and why they matter
-- Arrow functions and how they handle `this`
-- Default function parameters
-- Rest and spread operators (`...`)
-- Template literals (string interpolation)
-- Object shorthand syntax and computed property names
-- ES6 method properties
-- `for...of` loops vs `for...in`
+- How to define a Class in ES6
+- How to add methods to a class
+- Why and how to add a static method to a class
+- How to extend a class from another (inheritance)
+- Metaprogramming and Symbols
 
 ## Requirements
 
-- Ubuntu 20.04 LTS
 - Node.js `20.x.x`
 - npm `9.x.x`
-- Jest, Babel, ESLint (see setup below)
+- All files use the `.js` extension
+- Code tested with **Jest** and verified with **ESLint** (Airbnb style)
 
 ## Setup
 
@@ -38,34 +33,53 @@ sudo apt install nodejs -y
 npm install
 ```
 
-## Scripts
+## Run Tests
 
-| Command | Description |
-|---|---|
-| `npm run lint` | Run ESLint |
-| `npm run check-lint` | Lint all JS files |
-| `npm run dev` | Run a file with Babel |
-| `npm test` | Run Jest tests |
-| `npm run full-test` | Lint + Jest |
+```bash
+# Run tests only
+npm run test
+
+# Run lint + tests
+npm run full-test
+```
 
 ## Tasks
 
-| File | Description |
-|---|---|
-| `0-constants.js` | Use `const` and `let` instead of `var` |
-| `1-block-scoped.js` | Block-scoped variables to avoid hoisting issues |
-| `2-arrow.js` | Rewrite function using arrow syntax |
-| `3-default-parameter.js` | Use default parameter values |
-| `4-rest-parameter.js` | Use rest syntax to count arguments |
-| `5-spread-operator.js` | Concatenate arrays and string with spread |
-| `6-string-interpolation.js` | Use template literals |
-| `7-getBudgetObject.js` | Object property shorthand syntax |
-| `8-getBudgetCurrentYear.js` | Computed property names |
-| `9-getFullBudget.js` | ES6 method properties |
-| `10-loops.js` | Replace `for...in` with `for...of` |
-| `11-createEmployeesObject.js` | Create an object with a dynamic key |
-| `12-createReportObject.js` | Build a report object with a method property |
+### 0. `0-classroom.js` — ClassRoom
+A simple class that accepts `maxStudentsSize` and stores it in `_maxStudentsSize`.
+
+### 1. `1-make_classrooms.js` — initializeRooms
+A function that returns an array of 3 `ClassRoom` instances with sizes `19`, `20`, and `34`.
+
+### 2. `2-hbtn_course.js` — HolbertonCourse
+A class with `name` (String), `length` (Number), and `students` (array of Strings). Includes type validation in the constructor and getters/setters for each attribute.
+
+### 3. `3-currency.js` — Currency
+A class with `code` and `name` attributes, getters/setters, and a `displayFullCurrency()` method returning `name (code)`.
+
+### 4. `4-pricing.js` — Pricing
+A class with `amount` and `currency` (Currency) attributes. Includes a `displayFullPrice()` instance method and a `convertPrice(amount, conversionRate)` static method.
+
+### 5. `5-building.js` — Building (Abstract Class)
+A class that acts as an abstract base. Any subclass **must** implement `evacuationWarningMessage()`, or an error is thrown on instantiation.
+
+### 6. `6-sky_high.js` — SkyHighBuilding
+Extends `Building` with a `floors` attribute. Overrides `evacuationWarningMessage()` to return `Evacuate slowly the N floors`.
+
+### 7. `7-airport.js` — Airport
+A class with `name` and `code`. Uses `Symbol.toStringTag` so that the default string description returns the airport code (e.g. `[object SFO]`).
+
+### 8. `8-hbtn_class.js` — HolbertonClass
+A class with `size` and `location`. Uses `Symbol.toPrimitive` so that:
+- Casting to `Number` returns `size`
+- Casting to `String` returns `location`
+
+### 9. `9-hoisting.js` — Hoisting Fix
+Fixes a broken file by reordering class declarations before their usage, fixing constructor parameter names, and correcting `self` → `this` references.
+
+### 10. `10-car.js` — Car with cloneCar
+A class with `brand`, `motor`, and `color`. Implements a `cloneCar()` method using a `Symbol`-keyed internal method so that subclasses return the correct instance type when cloned.
 
 ## Author
 
-Holberton School — Web Back End track
+Holberton School — Web Back End
