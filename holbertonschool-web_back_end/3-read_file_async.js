@@ -9,26 +9,26 @@ function countStudents(path) {
       }
 
       const lines = data.split('\n').filter((line) => line.trim() !== '');
-      const students = lines.slice(1); // remove header
+      const students = lines.slice(1);
 
       console.log(`Number of students: ${students.length}`);
 
       const fields = {};
-      for (const student of students) {
+      students.forEach((student) => {
         const cols = student.split(',');
         const firstname = cols[0];
         const field = cols[3];
         if (!fields[field]) fields[field] = [];
         fields[field].push(firstname);
-      }
+      });
 
-      for (const field of Object.keys(fields).sort((a, b) =>
-        a.toLowerCase().localeCompare(b.toLowerCase())
-      )) {
-        console.log(
-          `Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`
-        );
-      }
+      Object.keys(fields)
+        .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
+        .forEach((field) => {
+          console.log(
+            `Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`,
+          );
+        });
 
       resolve();
     });
