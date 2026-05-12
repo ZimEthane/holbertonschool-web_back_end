@@ -1,34 +1,22 @@
 const fs = require('fs');
 
-function countStudents(path) {
-  let data;
+module.exports = function countStudents(filePath) {
   try {
-    data = fs.readFileSync(path, 'utf8');
-  } catch (e) {
+    const data = fs.readFileSync(filePath, 'utf-8');
+    const lines = data.split('\n').filter((line) => line.trim() !== '');
+    const students = {};
+    lines.slice(1).forEach((line) => {
+      const [firstName, , , field] = line.split(',');
+      if (!students[field]) {
+        students[field] = [];
+      }
+      students[field].push(firstName);
+    });
+    console.log(`Number of students: ${lines.length - 1}`);
+    Object.keys(students).forEach((field) => {
+      console.log(`Number of students in ${field}: ${students[field].length}. List: ${students[field].join(', ')}`);
+    });
+  } catch (_) {
     throw new Error('Cannot load the database');
   }
-
-  const lines = data.split('\n').filter((line) => line.trim() !== '');
-  const students = lines.slice(1);
-
-  console.log(`Number of students: ${students.length}`);
-
-  const fields = {};
-  students.forEach((student) => {
-    const cols = student.split(',');
-    const firstname = cols[0];
-    const field = cols[3];
-    if (!fields[field]) fields[field] = [];
-    fields[field].push(firstname);
-  });
-
-  Object.keys(fields)
-    .sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase()))
-    .forEach((field) => {
-      console.log(
-        `Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`,
-      );
-    });
-}
-
-module.exports = countStudents;
+};
